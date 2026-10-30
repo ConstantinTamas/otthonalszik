@@ -1144,6 +1144,7 @@ function drawChart(d,days,alap,kron,icu,mult,elig){
   let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Díj ápolási naponként">`;
   for(let g=0;g<=top+1e-9;g+=step){s+=`<line x1="${pl}" x2="${W-pr}" y1="${y(g)}" y2="${y(g)}" stroke="var(--line)" stroke-width="1"/><text x="${pl-6}" y="${y(g)+4}" text-anchor="end">${g>=1e6?(g/1e6).toLocaleString("hu-HU",{maximumFractionDigits:1})+" M":Math.round(g/1000)+" e"}</text>`;}
   vals.forEach(o=>{const x=pl+(o.i-1)*bw+1.5;const col=o.k==="short"?"var(--short)":o.k==="long"?"var(--long)":"var(--full)";const isCur=o.i===days;
+    s+=`<rect x="${x}" y="${y(o.v)}" width="${Math.max(bw-3,2)}" height="${Math.max(H-pb-y(o.v),0)}" fill="${isCur?"var(--fg)":col}" opacity="${isCur||!elig?1:0.85}"><title>${o.i} nap: ${ft(o.v)}</title></rect>`;
     if(maxD<=24||o.i%5===0||o.i===1||isCur) s+=`<text x="${x+bw/2-1.5}" y="${H-8}" text-anchor="middle"${isCur?' style="fill:var(--fg);font-weight:600"':""}>${o.i}</text>`;});
   s+=`</svg>`; $("chart").innerHTML=s;
 }
